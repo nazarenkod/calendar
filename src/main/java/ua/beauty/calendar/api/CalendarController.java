@@ -51,7 +51,10 @@ public class CalendarController {
         System.out.println("time "+request.getTime());
         System.out.println("duration "+request.getDuration());
 
-        LocalDate localDate = LocalDate.parse(request.getDate());
+
+
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.parse(request.getDate(),df);
         LocalTime localTime = LocalTime.parse(request.getTime());
         LocalTime localDuration = LocalTime.parse(request.getDuration());
 
