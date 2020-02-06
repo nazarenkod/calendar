@@ -18,9 +18,7 @@ import ua.beauty.calendar.service.CalendarService;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalField;
@@ -57,10 +55,18 @@ public class CalendarController {
         LocalDate localDate = LocalDate.parse(request.getDate(),df);
         LocalTime localTime = LocalTime.parse(request.getTime());
         LocalTime localDuration = LocalTime.parse(request.getDuration());
+        Duration duration = Duration.parse(request.getDuration());
+
+        LocalDateTime start = LocalDateTime.of(localDate,localTime);
+       // LocalDateTime end = LocalDateTime.of(localDate,localTime.plus(localDuration));
 
         System.out.println("localDate "+localDate);
         System.out.println("localTime "+localTime);
         System.out.println("localDuration "+localDuration);
+
+        System.out.println("durationLoca " + duration);
+
+        System.out.println("start "+ start);
 
 
 
