@@ -55,18 +55,21 @@ public class CalendarController {
         LocalDate localDate = LocalDate.parse(request.getDate(),df);
         LocalTime localTime = LocalTime.parse(request.getTime());
         LocalTime localDuration = LocalTime.parse(request.getDuration());
-        Duration duration = Duration.parse(request.getDuration());
+        Integer hour = localDuration.getHour();
+        Integer min = localDuration.getMinute();
 
         LocalDateTime start = LocalDateTime.of(localDate,localTime);
-       // LocalDateTime end = LocalDateTime.of(localDate,localTime.plus(localDuration));
+        LocalDateTime end = start.plusHours(hour).plusMinutes(min);
 
         System.out.println("localDate "+localDate);
         System.out.println("localTime "+localTime);
         System.out.println("localDuration "+localDuration);
 
-        System.out.println("durationLoca " + duration);
+
 
         System.out.println("start "+ start);
+
+        System.out.println("end " + end);
 
 
 
