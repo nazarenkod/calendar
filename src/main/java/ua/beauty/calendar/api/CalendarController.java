@@ -19,6 +19,8 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalField;
@@ -48,6 +50,15 @@ public class CalendarController {
         System.out.println("date "+request.getDate());
         System.out.println("time "+request.getTime());
         System.out.println("duration "+request.getDuration());
+
+        LocalDate localDate = LocalDate.parse(request.getDate());
+        LocalTime localTime = LocalTime.parse(request.getTime());
+        LocalTime localDuration = LocalTime.parse(request.getDuration());
+
+        System.out.println("localDate "+localDate);
+        System.out.println("localTime "+localTime);
+        System.out.println("localDuration "+localDuration);
+
 
 
 
