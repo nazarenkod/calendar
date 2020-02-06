@@ -29,38 +29,38 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public CalendarEvent addEvents(EventRequest request) {
-
-        String eventId = null;
+//
+//        String eventId = null;
         CalendarEvent calendarEvent = new CalendarEvent();
-        calendarEvent.setSummary(request.getSummary());
-        //use ISO8601DATEFORMAT
-
-        Event event = new Event()
-                .setSummary(calendarEvent.getSummary());
-
-
-
-
-        DateTime startDateTime = new DateTime(request.getStartDateTime());
-
-        EventDateTime start = new EventDateTime()
-                .setDateTime(startDateTime);
-
-        event.setStart(start);
-
-        DateTime endDateTime = new DateTime(request.getEndDateTime());
-
-        EventDateTime end = new EventDateTime()
-                .setDateTime(endDateTime);
-        event.setEnd(end);
-
-        String calendarId = "primary";
-        try {
-            eventId = googleCalendarAPI.getEvents().insert(calendarId, event).execute().getId();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        calendarEvent.setEventId(eventId);
+//        calendarEvent.setSummary(request.getSummary());
+//        //use ISO8601DATEFORMAT
+//
+//        Event event = new Event()
+//                .setSummary(calendarEvent.getSummary());
+//
+//
+//
+//
+//        DateTime startDateTime = new DateTime(request.getStartDateTime());
+//
+//        EventDateTime start = new EventDateTime()
+//                .setDateTime(startDateTime);
+//
+//        event.setStart(start);
+//
+//        DateTime endDateTime = new DateTime(request.getEndDateTime());
+//
+//        EventDateTime end = new EventDateTime()
+//                .setDateTime(endDateTime);
+//        event.setEnd(end);
+//
+//        String calendarId = "primary";
+//        try {
+//            eventId = googleCalendarAPI.getEvents().insert(calendarId, event).execute().getId();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        calendarEvent.setEventId(eventId);
         return calendarEvent;
     }
 

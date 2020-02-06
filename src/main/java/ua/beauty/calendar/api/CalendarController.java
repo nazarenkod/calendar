@@ -6,6 +6,7 @@ package ua.beauty.calendar.api;
 
 
 
+import com.google.api.client.util.DateTime;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,15 @@ import ua.beauty.calendar.model.BaseEventResponse;
 import ua.beauty.calendar.service.CalendarService;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 
 //это есть адаптер
@@ -32,9 +42,19 @@ public class CalendarController {
 
 
 
-    @PostMapping(path = "/events",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    CalendarEvent addEvent(@RequestBody @Valid EventRequest request){
-        return calendarService.addEvents(request);
+    @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    String addEvent(@RequestBody @Valid EventRequest request){
+
+        System.out.println("date "+request.getDate());
+        System.out.println("time "+request.getTime());
+        System.out.println("duration "+request.getDuration());
+
+
+
+
+
+
+        return "true";
 
     }
 

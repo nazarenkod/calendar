@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 //Это DataTransferObject
 @Data
@@ -16,22 +17,39 @@ public class EventRequest {
 
     @NonNull
     @NotBlank
-    @JsonProperty("endDateTime")
-    private String endDateTime;
+    @JsonProperty("clientName")
+    private String clientName;
 
     @NonNull
     @NotBlank
-    @JsonProperty("startDateTime")
-    private String startDateTime;
+    @JsonProperty("phoneNumber")
+    private String phoneNumber;
 
 
     //сдулать проверку на наличие из Dictionary
     @NonNull
-    @JsonProperty("master")
-    private String master;
+    @JsonProperty("instagram")
+    private String instagram;
 
     @NonNull
     @NotBlank
-    @JsonProperty("summary")
-    private String summary;
+    @JsonProperty("price")
+    private String price;
+
+    @NonNull
+    @NotBlank
+    @JsonProperty("date")
+    private String date;
+
+    @NonNull
+    @NotBlank
+    @JsonProperty("time")
+    private String time;
+
+    @NonNull
+    @NotBlank
+    @JsonProperty("duration")
+    private String duration;
+
+
 }

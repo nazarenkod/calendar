@@ -29,17 +29,27 @@ public class MasterController {
     private final CalendarService calendarService;
 
 
-    @RequestMapping(method = RequestMethod.GET,path = "/master",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    BaseMasterResponse findAllEvents(){
-        Master polina = new Master(1,"Полина");
-        Master diana = new Master(2,"Диана");
-        List<Master> masters = new ArrayList();
-        masters.add(polina);
-        masters.add(diana);
+//    @RequestMapping(method = RequestMethod.GET,path = "/master",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+//    BaseMasterResponse findAllEvents(){
+//        Master polina = new Master(1,"Полина");
+//        Master diana = new Master(2,"Диана");
+//        List<Master> masters = new ArrayList();
+//        masters.add(polina);
+//        masters.add(diana);
+//
+//        return new BaseMasterResponse("success",masters);
+//    }
+//
+@RequestMapping(method = RequestMethod.GET,path = "/master",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+List<Master> findAllEvents(){
+    Master polina = new Master(1,"Полина");
+    Master diana = new Master(2,"Диана");
+    List<Master> masters = new ArrayList();
+    masters.add(polina);
+    masters.add(diana);
 
-        return new BaseMasterResponse("success",masters);
-    }
-
+    return masters;
+}
 
 
 
