@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>2.1.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -23,6 +23,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,22 +43,9 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>1.23.0</version>
-        </dependency>
 
-        <dependency>
-            <groupId>com.google.oauth-client</groupId>
-            <artifactId>google-oauth-client-jetty</artifactId>
-            <version>1.23.0</version>
-        </dependency>
+
 
         <dependency>
             <groupId>pl.project13.maven</groupId>
@@ -66,11 +54,28 @@
         </dependency>
 
 
+
         <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-calendar</artifactId>
-            <version>v3-rev305-1.23.0</version>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
         </dependency>
+
+        <!-- jpa, crud repository -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+
+        </dependency>
+
+        <!-- PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+
+
 
     </dependencies>
 
@@ -88,10 +93,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-            </plugin>
+
 
             <plugin>
                 <groupId>pl.project13.maven</groupId>

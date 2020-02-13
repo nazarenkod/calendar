@@ -1,10 +1,12 @@
-package ua.beauty.calendar.domain.dto;
+package ua.beauty.calendar.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
 
 //Это DataTransferObject
 @Data
