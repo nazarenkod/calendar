@@ -1,22 +1,16 @@
 package ua.beauty.calendar.api;
 
 
-
-
-
-
-
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import ua.beauty.calendar.domain.Master;
+import ua.beauty.calendar.domain.MasterRequest;
 import ua.beauty.calendar.exception.ResourceNotFoundException;
 import ua.beauty.calendar.service.MasterService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -41,6 +35,14 @@ public class MasterController {
         Master master = masterService.findById(masterId)
                 .orElseThrow(() -> new ResourceNotFoundException("Мастер не найден"));
         return ResponseEntity.ok().body(master);
+    }
+
+    @PostMapping(path = "/addMaster", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    Master addMaster(@RequestBody @Valid MasterRequest request) {
+        Master master = new Master();
+        master.setName(request.getName());
+        return masterService.save(master);
+
     }
 
 

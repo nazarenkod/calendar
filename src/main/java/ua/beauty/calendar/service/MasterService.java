@@ -17,4 +17,6 @@ public interface MasterService {
     List<Master> findAll();
     Optional<Master> findById(Long id);
 
+    Master save(Master master);
+
 }

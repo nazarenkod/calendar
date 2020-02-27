@@ -53,5 +53,9 @@ public class EventRequest {
     @JsonProperty("duration")
     private String duration;
 
+    @NonNull
+    @JsonProperty("masterId")
+    private Long masterId;
+
 
 }

@@ -3,10 +3,8 @@ package ua.beauty.calendar.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import ua.beauty.calendar.dao.MasterDao;
 import ua.beauty.calendar.domain.Master;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +26,11 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public Optional<Master> findById(Long id) {
         return masterDao.findById(id);
+    }
+
+    @Override
+    public Master save(Master master) {
+        return masterDao.save(master);
     }
 
 

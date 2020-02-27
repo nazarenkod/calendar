@@ -1,10 +1,9 @@
 package ua.beauty.calendar.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter @Setter
@@ -18,21 +17,25 @@ public class Event {
     @NonNull
 
     private String clientName;
-    @NonNull
+    @NotNull
 
     private String phoneNumber;
-    @NonNull
+    @NotNull
 
     private String instagram;
-    @NonNull
+    @NotNull
 
     private String price;
-    @NonNull
+    @NotNull
 
     private String startDateTime;
-    @NonNull
+    @NotNull
 
     private String endDateTime;
+    @ManyToOne
+    @JoinColumn
+    @NotNull
+    private Master master;
 
 }
 
