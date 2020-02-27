@@ -3,12 +3,10 @@ package ua.beauty.calendar.api;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.beauty.calendar.domain.Event;
 import ua.beauty.calendar.domain.EventRequest;
 import ua.beauty.calendar.domain.Master;
-import ua.beauty.calendar.exception.ResourceNotFoundException;
 import ua.beauty.calendar.service.EventService;
 import ua.beauty.calendar.service.MasterService;
 
@@ -18,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 
 //это есть адаптер
@@ -27,6 +26,7 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
+    private final MasterService masterService;
 
 
     @RequestMapping(method = RequestMethod.GET,path = "/event",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -71,7 +71,8 @@ public class EventController {
         System.out.println("date: "+ request.getDate());
         System.out.println("time: "+ request.getTime());
         System.out.println("duration: "+ request.getDuration());
-
+        Optional<Master> master = masterService.findById(request.getMasterId());
+        event.setMaster(master.get());
         eventService.addEvent(event);
         return eventService.addEvent(event);
 
