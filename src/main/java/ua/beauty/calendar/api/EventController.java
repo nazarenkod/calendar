@@ -40,6 +40,7 @@ public class EventController {
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     long addEvent(@RequestBody @Valid EventRequest request){
         Event event = new Event();
+        System.out.println("req: " + request.toString());
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
         event.setInstagram(request.getInstagram());

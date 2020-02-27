@@ -54,7 +54,7 @@ public class EventRequest {
     private String duration;
 
     @NonNull
-    @JsonProperty("masterId")
+    @JsonProperty("master")
     private Long masterId;
 
 
