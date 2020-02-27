@@ -71,6 +71,7 @@ public class EventController {
         System.out.println("date: "+ request.getDate());
         System.out.println("time: "+ request.getTime());
         System.out.println("duration: "+ request.getDuration());
+        System.out.println("master: " + request.getMasterId());
         Optional<Master> master = masterService.findById(request.getMasterId());
         event.setMaster(master.get());
         eventService.addEvent(event);
