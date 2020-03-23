@@ -3,10 +3,12 @@ package ua.beauty.calendar.api;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.beauty.calendar.domain.Event;
 import ua.beauty.calendar.domain.EventRequest;
 import ua.beauty.calendar.domain.Master;
+import ua.beauty.calendar.exception.ResourceNotFoundException;
 import ua.beauty.calendar.service.EventService;
 import ua.beauty.calendar.service.MasterService;
 
@@ -78,6 +80,13 @@ public class EventController {
         eventService.addEvent(event);
         return eventService.addEvent(event);
 
+    }
+
+    @GetMapping("/event/remove/{id}")
+    public ResponseEntity removeEvent(@PathVariable(value = "id") Long eventId)
+            throws ResourceNotFoundException {
+        eventService.removeEvent(eventId);
+        return ResponseEntity.ok("success");
     }
 
 

@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.beauty.calendar.dao.EventDao;
-import ua.beauty.calendar.dao.MasterDao;
 import ua.beauty.calendar.domain.Event;
-import ua.beauty.calendar.domain.Master;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +35,11 @@ public class EventServiceImpl implements EventService {
     public long addEvent(Event event) {
         long id = eventDao.save(event).getId();
         return id;
+    }
+
+    @Override
+    public void removeEvent(Long id) {
+        eventDao.deleteById(id);
     }
 
 

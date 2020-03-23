@@ -8,7 +8,6 @@ package ua.beauty.calendar.service;
 
 
 import ua.beauty.calendar.domain.Event;
-import ua.beauty.calendar.domain.Master;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +19,7 @@ public interface EventService {
     Optional<Event> findById(Long id);
 
     long addEvent(Event event);
+
+    void removeEvent(Long id);
 
 }
