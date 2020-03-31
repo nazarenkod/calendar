@@ -15,7 +15,8 @@ import javax.validation.constraints.NotBlank;
 public class EventRequest {
 
 
-
+    @JsonProperty("id")
+    private Long id;
 
     @NonNull
     @NotBlank
