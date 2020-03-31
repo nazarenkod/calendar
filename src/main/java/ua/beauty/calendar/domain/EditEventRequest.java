@@ -12,9 +12,12 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class EventRequest {
+public class EditEventRequest {
 
-
+    @NonNull
+    @NotBlank
+    @JsonProperty("id")
+    private Long id;
 
     @NonNull
     @NotBlank

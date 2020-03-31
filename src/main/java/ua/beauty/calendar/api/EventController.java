@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ua.beauty.calendar.domain.EditEventRequest;
 import ua.beauty.calendar.domain.Event;
 import ua.beauty.calendar.domain.EventRequest;
 import ua.beauty.calendar.domain.Master;
@@ -72,7 +73,7 @@ public class EventController {
     }
 
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    long editEvent(@RequestBody @Valid EventRequest request) {
+    long editEvent(@RequestBody @Valid EditEventRequest request) {
         Event event = new Event();
         System.out.println("req: " + request.toString());
         event.setId(request.getId());
