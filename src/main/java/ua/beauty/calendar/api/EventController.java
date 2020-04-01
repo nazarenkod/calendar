@@ -55,7 +55,7 @@ public class EventController {
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     long editEvent(@RequestBody @Valid EditEventRequest request) {
         Event event = new Event();
-        event.setId(request.getId());
+        event.setId(request.getId().longValue());
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
         event.setInstagram(request.getInstagram());
