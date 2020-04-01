@@ -1,8 +1,10 @@
 package ua.beauty.calendar.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -28,10 +30,21 @@ public class Event {
     private String price;
     @NotNull
 
-    private String startDateTime;
-    @NotNull
+    @NonNull
+    @NotBlank
+    @JsonProperty("date")
+    private String date;
 
-    private String endDateTime;
+    @NonNull
+    @NotBlank
+    @JsonProperty("time")
+    private String time;
+
+    @NonNull
+    @NotBlank
+    @JsonProperty("duration")
+    private String duration;
+
     @ManyToOne
     @JoinColumn
     @NotNull
