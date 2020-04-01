@@ -13,10 +13,6 @@ import ua.beauty.calendar.service.EventService;
 import ua.beauty.calendar.service.MasterService;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,29 +39,13 @@ public class EventController {
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     long addEvent(@RequestBody @Valid EventRequest request){
         Event event = new Event();
-        System.out.println("req: " + request.toString());
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
         event.setInstagram(request.getInstagram());
         event.setPrice(request.getPrice());
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate localDate = LocalDate.parse(request.getDate(),df);
-        LocalTime localTime = LocalTime.parse(request.getTime());
-        LocalTime localDuration = LocalTime.parse(request.getDuration());
-        Integer hour = localDuration.getHour();
-        Integer min = localDuration.getMinute();
-        LocalDateTime start = LocalDateTime.of(localDate,localTime);
-        LocalDateTime end = start.plusHours(hour).plusMinutes(min);
-        event.setStartDateTime(start.toString());
-        event.setEndDateTime(end.toString());
-        System.out.println("client name: "+ request.getClientName());
-        System.out.println("phone: "+ request.getPhoneNumber());
-        System.out.println("insta: "+ request.getInstagram());
-        System.out.println("price: "+ request.getPrice());
-        System.out.println("date: "+ request.getDate());
-        System.out.println("time: "+ request.getTime());
-        System.out.println("duration: "+ request.getDuration());
-        System.out.println("master: " + request.getMasterId());
+        event.setTime(request.getTime());
+        event.setDate(request.getDate());
+        event.setDuration(request.getDuration());
         Optional<Master> master = masterService.findById(request.getMasterId());
         event.setMaster(master.get());
         eventService.addEvent(event);
@@ -75,31 +55,14 @@ public class EventController {
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     long editEvent(@RequestBody @Valid EditEventRequest request) {
         Event event = new Event();
-        System.out.println("req: " + request.toString());
         event.setId(request.getId());
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
         event.setInstagram(request.getInstagram());
         event.setPrice(request.getPrice());
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate localDate = LocalDate.parse(request.getDate(), df);
-        LocalTime localTime = LocalTime.parse(request.getTime());
-        LocalTime localDuration = LocalTime.parse(request.getDuration());
-        Integer hour = localDuration.getHour();
-        Integer min = localDuration.getMinute();
-        LocalDateTime start = LocalDateTime.of(localDate, localTime);
-        LocalDateTime end = start.plusHours(hour).plusMinutes(min);
-        event.setStartDateTime(start.toString());
-        event.setEndDateTime(end.toString());
-
-        System.out.println("client name: " + request.getClientName());
-        System.out.println("phone: " + request.getPhoneNumber());
-        System.out.println("insta: " + request.getInstagram());
-        System.out.println("price: " + request.getPrice());
-        System.out.println("date: " + request.getDate());
-        System.out.println("time: " + request.getTime());
-        System.out.println("duration: " + request.getDuration());
-        System.out.println("master: " + request.getMasterId());
+        event.setDate(request.getDate());
+        event.setTime(request.getTime());
+        event.setDuration(request.getDuration());
         Optional<Master> master = masterService.findById(request.getMasterId());
         event.setMaster(master.get());
         eventService.addEvent(event);
