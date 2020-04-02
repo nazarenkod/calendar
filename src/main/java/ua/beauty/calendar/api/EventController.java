@@ -9,11 +9,11 @@ import ua.beauty.calendar.domain.EditEventRequest;
 import ua.beauty.calendar.domain.Event;
 import ua.beauty.calendar.domain.EventRequest;
 import ua.beauty.calendar.domain.Master;
+import ua.beauty.calendar.model.EventResponse;
 import ua.beauty.calendar.service.EventService;
 import ua.beauty.calendar.service.MasterService;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -28,9 +28,10 @@ public class EventController {
 
 
     @RequestMapping(method = RequestMethod.GET,path = "/event",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    List<Event> findAllEvents(){
-        System.out.println("=================get======================");
-        return eventService.findAll();
+    EventResponse findAllEvents() {
+
+        return new EventResponse("success", eventService.findAll());
+
     }
 
 
