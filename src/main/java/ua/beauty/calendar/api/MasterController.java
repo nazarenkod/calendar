@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import ua.beauty.calendar.domain.Master;
 import ua.beauty.calendar.domain.MasterRequest;
 import ua.beauty.calendar.exception.ResourceNotFoundException;
+import ua.beauty.calendar.model.MasterResponse;
 import ua.beauty.calendar.service.MasterService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 //это есть адаптер
@@ -25,8 +25,8 @@ public class MasterController {
 
 
 @RequestMapping(method = RequestMethod.GET,path = "/master",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    List<Master> findAllMasters(){
-    return masterService.findAll();
+MasterResponse findAllMasters() {
+    return new MasterResponse("success", masterService.findAll());
 }
 
     @GetMapping("/master/{id}")
