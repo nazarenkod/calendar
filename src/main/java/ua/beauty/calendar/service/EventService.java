@@ -18,8 +18,8 @@ public interface EventService {
 
     Optional<Event> findById(Long id);
 
-    Long addEvent(Event event);
+    long addEvent(Event event);
 
-    Long removeEvent(Long id);
+    long removeEvent(Long id);
 
 }

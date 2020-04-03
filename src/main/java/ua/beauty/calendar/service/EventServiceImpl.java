@@ -33,13 +33,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public long addEvent(Event event) {
-        long id = eventDao.save(event).getId();
-        return id;
+        return eventDao.save(event).getId();
     }
 
     @Override
-    public void removeEvent(Long id) {
+    public long removeEvent(Long id) {
         eventDao.deleteById(id);
+        return id;
     }
 
 

@@ -51,7 +51,7 @@ public class EventController {
         event.setDuration(request.getDuration());
         Optional<Master> master = masterService.findById(request.getMasterId());
         event.setMaster(master.get());
-        Long id = eventService.addEvent(event);
+        long id = eventService.addEvent(event);
         return new CreateEventResponse("success", "created", id);
     }
 
@@ -68,7 +68,7 @@ public class EventController {
         event.setDuration(request.getDuration());
         Optional<Master> master = masterService.findById(request.getMasterId());
         event.setMaster(master.get());
-        Long id = eventService.addEvent(event);
+        long id = eventService.addEvent(event);
         return new EditEventResponse("success", "edited", id);
     }
 
