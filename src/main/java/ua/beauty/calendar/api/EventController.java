@@ -52,7 +52,13 @@ public class EventController {
         event.setMaster(master.get());
         Optional<Procedure> procedure = procedureService.findById(request.getProcedureId());
         event.setProcedure(procedure.get());
-        long id = eventService.addEvent(event);
+        long id;
+        try {
+            id = eventService.addEvent(event);
+        } catch (IllegalArgumentException ex) {
+            return new CreateEventResponse("error", ex.getMessage());
+        }
+
         return new CreateEventResponse("success", "created", id);
     }
 

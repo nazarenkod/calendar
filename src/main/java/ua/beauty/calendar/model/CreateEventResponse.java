@@ -18,4 +18,10 @@ public class CreateEventResponse {
         this.message = message;
         this.id = id;
     }
+
+    public CreateEventResponse(String status, String message) {
+        this.status = status;
+        this.message = message;
+
+    }
 }
