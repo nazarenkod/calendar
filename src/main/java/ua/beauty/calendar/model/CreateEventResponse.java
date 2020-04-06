@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateEventResponse {
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("id")
     private long id;
     @JsonProperty("status")

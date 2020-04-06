@@ -23,6 +23,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class EventController {
 
+
     private final EventService eventService;
     private final MasterService masterService;
     private final ProcedureService procedureService;
@@ -39,7 +40,9 @@ public class EventController {
 
 
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    CreateEventResponse addEvent(@RequestBody @Valid EventRequest request) {
+    CreateEventResponse addEvent(@RequestBody EventRequest request) {
+
+
         Event event = new Event();
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
@@ -50,15 +53,13 @@ public class EventController {
         event.setDuration(request.getDuration());
         Optional<Master> master = masterService.findById(request.getMasterId());
         event.setMaster(master.get());
+
+        if (request.getProcedureId() == null) {
+            return new CreateEventResponse("error", "Процедура не указана");
+        }
         Optional<Procedure> procedure = procedureService.findById(request.getProcedureId());
         event.setProcedure(procedure.get());
-        long id;
-        try {
-            id = eventService.addEvent(event);
-        } catch (IllegalArgumentException ex) {
-            return new CreateEventResponse("error", ex.getMessage());
-        }
-
+        long id = eventService.addEvent(event);
         return new CreateEventResponse("success", "created", id);
     }
 
