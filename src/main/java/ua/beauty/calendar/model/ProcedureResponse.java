@@ -10,17 +10,17 @@ public class ProcedureResponse {
 
     @JsonProperty("status")
     private String status;
-    @JsonProperty("procudures")
+    @JsonProperty("procedures")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<Procedure> procudures;
+    private List<Procedure> procedures;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("message")
     private String message;
 
 
-    public ProcedureResponse(String status, List<Procedure> procudures) {
+    public ProcedureResponse(String status, List<Procedure> procedures) {
         this.status = status;
-        this.procudures = procudures;
+        this.procedures = procedures;
     }
 
     public ProcedureResponse(String status, String message) {
