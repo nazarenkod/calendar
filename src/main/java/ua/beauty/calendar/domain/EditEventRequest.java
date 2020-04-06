@@ -58,5 +58,9 @@ public class EditEventRequest {
     @JsonProperty("master")
     private Long masterId;
 
+    @NonNull
+    @JsonProperty("procedure")
+    private Long procedureId;
+
 
 }

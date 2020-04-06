@@ -50,5 +50,10 @@ public class Event {
     @NotNull
     private Master master;
 
+    @ManyToOne
+    @JoinColumn
+    @NotNull
+    private Procedure procedure;
+
 }
 
