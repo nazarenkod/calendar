@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Event {
     @Id

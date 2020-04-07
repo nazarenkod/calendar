@@ -42,5 +42,10 @@ public class EventServiceImpl implements EventService {
         return id;
     }
 
+    @Override
+    public List<Event> findEventByMasterAndDate(String name, String date) {
+        return eventDao.findEventsByMasterAndDate(name, date);
+    }
+
 
 }

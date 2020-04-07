@@ -11,6 +11,7 @@ public class EditEventResponse {
     @JsonProperty("message")
     private String message;
     @JsonProperty("id")
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private long id;
 
 
@@ -18,5 +19,10 @@ public class EditEventResponse {
         this.status = status;
         this.message = message;
         this.id = id;
+    }
+
+    public EditEventResponse(String status, String message) {
+        this.status = status;
+        this.message = message;
     }
 }
