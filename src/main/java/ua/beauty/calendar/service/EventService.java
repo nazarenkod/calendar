@@ -22,4 +22,6 @@ public interface EventService {
 
     long removeEvent(Long id);
 
+    List<Event> findEventByMasterAndDate(String name, String date);
+
 }
