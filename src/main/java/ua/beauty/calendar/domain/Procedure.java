@@ -1,5 +1,6 @@
 package ua.beauty.calendar.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -17,9 +18,11 @@ import javax.persistence.Id;
 public class Procedure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long id;
 
     @NonNull
+    @JsonProperty("name")
     private String name;
 
 

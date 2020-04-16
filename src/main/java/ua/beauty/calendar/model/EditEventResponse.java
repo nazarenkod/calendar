@@ -10,15 +10,15 @@ public class EditEventResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("message")
     private String message;
-    @JsonProperty("id")
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    private long id;
+    //   @JsonProperty("id")
+//    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+//    private long id;
 
 
     public EditEventResponse(String status, String message, Long id) {
         this.status = status;
         this.message = message;
-        this.id = id;
+        //   this.id = id;
     }
 
     public EditEventResponse(String status, String message) {
