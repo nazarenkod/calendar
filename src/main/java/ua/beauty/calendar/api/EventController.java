@@ -169,7 +169,7 @@ public class EventController {
         }
 
         long id = eventService.addEvent(event);
-        return new CreateEventResponse("success", "created", id);
+        return new CreateEventResponse("success", "created");
     }
 
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
