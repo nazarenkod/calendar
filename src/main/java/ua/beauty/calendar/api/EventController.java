@@ -146,7 +146,7 @@ public class EventController {
 
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     CreateEventResponse addEvent(@RequestBody EventRequest request) {
-
+        System.out.println(request.toString());
         Event event = new Event();
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
@@ -168,7 +168,7 @@ public class EventController {
             return new CreateEventResponse("error", "Это время занято");
         }
 
-        long id = eventService.addEvent(event);
+        eventService.addEvent(event);
         return new CreateEventResponse("success", "created");
     }
 
