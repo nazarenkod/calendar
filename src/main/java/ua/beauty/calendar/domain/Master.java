@@ -16,7 +16,8 @@ import javax.persistence.Id;
 public class Master {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    // private Long id;
+    private Integer id;
     @NonNull
     private String name;
 }
