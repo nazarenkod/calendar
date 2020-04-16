@@ -155,15 +155,15 @@ public class EventController {
         event.setTime(request.getTime());
         event.setDate(request.getDate());
         event.setDuration(request.getDuration());
-        Optional<Master> master = masterService.findById(request.getMasterId());
-        event.setMaster(master.get());
+        //Optional<Master> master = masterService.findById(request.getMasterId());
+        event.setMaster(request.getMaster());
 
-        if (request.getProcedureId() == null) {
+        if (request.getProcedure() == null) {
             return new CreateEventResponse("error", "Процедура не указана");
         }
-        Optional<Procedure> procedure = procedureService.findById(request.getProcedureId());
-        event.setProcedure(procedure.get());
-        List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(master.get().getName(), request.getDate());
+        // Optional<Procedure> procedure = procedureService.findById(request.getProcedureId());
+        event.setProcedure(request.getProcedure());
+        List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new CreateEventResponse("error", "Это время занято");
         }

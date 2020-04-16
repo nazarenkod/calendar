@@ -54,11 +54,11 @@ public class EventRequest {
 
     @NonNull
     @JsonProperty("master")
-    private Long masterId;
+    private Master master;
 
     @NonNull
     @JsonProperty("procedure")
-    private Long procedureId;
+    private Procedure procedure;
 
 
 }
