@@ -14,8 +14,6 @@ import javax.validation.constraints.NotBlank;
 @RequiredArgsConstructor
 public class EventRequest {
 
-
-
     @NonNull
     @NotBlank
     @JsonProperty("clientName")
@@ -59,6 +57,4 @@ public class EventRequest {
     @NonNull
     @JsonProperty("procedure")
     private Procedure procedure;
-
-
 }

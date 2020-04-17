@@ -4,7 +4,9 @@ package ua.beauty.calendar.api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ua.beauty.calendar.domain.*;
+import ua.beauty.calendar.domain.EditEventRequest;
+import ua.beauty.calendar.domain.Event;
+import ua.beauty.calendar.domain.EventRequest;
 import ua.beauty.calendar.model.CreateEventResponse;
 import ua.beauty.calendar.model.EditEventResponse;
 import ua.beauty.calendar.model.EventResponse;
@@ -20,7 +22,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 //это есть адаптер
@@ -146,7 +147,6 @@ public class EventController {
 
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     CreateEventResponse addEvent(@RequestBody EventRequest request) {
-        System.out.println(request.toString());
         Event event = new Event();
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
@@ -155,13 +155,11 @@ public class EventController {
         event.setTime(request.getTime());
         event.setDate(request.getDate());
         event.setDuration(request.getDuration());
-        //Optional<Master> master = masterService.findById(request.getMasterId());
         event.setMaster(request.getMaster());
 
         if (request.getProcedure() == null) {
             return new CreateEventResponse("error", "Процедура не указана");
         }
-        // Optional<Procedure> procedure = procedureService.findById(request.getProcedureId());
         event.setProcedure(request.getProcedure());
         List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
@@ -180,20 +178,21 @@ public class EventController {
         event.setPhoneNumber(request.getPhoneNumber());
         event.setInstagram(request.getInstagram());
         event.setPrice(request.getPrice());
-        event.setDate(request.getDate());
         event.setTime(request.getTime());
+        event.setDate(request.getDate());
         event.setDuration(request.getDuration());
-        Optional<Master> master = masterService.findById(request.getMasterId());
-        event.setMaster(master.get());
-        Optional<Procedure> procedure = procedureService.findById(request.getProcedureId());
-        event.setProcedure(procedure.get());
-        List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(master.get().getName(), request.getDate());
+        event.setMaster(request.getMaster());
+        if (request.getProcedure() == null) {
+            return new EditEventResponse("error", "Процедура не указана");
+        }
+        event.setProcedure(request.getProcedure());
+        List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new EditEventResponse("error", "Это время занято");
         }
 
-        long id = eventService.addEvent(event);
-        return new EditEventResponse("success", "edited", id);
+        eventService.addEvent(event);
+        return new EditEventResponse("success", "edited");
     }
 
     @GetMapping("/event/remove/{id}")
