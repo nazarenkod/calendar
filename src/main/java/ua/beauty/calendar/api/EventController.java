@@ -173,6 +173,10 @@ public class EventController {
 
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     EditEventResponse editEvent(@RequestBody @Valid EditEventRequest request) {
+        Optional<Event> storedEvent = eventService.findById(request.getId().longValue());
+        if (storedEvent.equals(request)) {
+            return new EditEventResponse("error", "Данные записи не изменились");
+        }
         Event event = new Event();
         event.setId(request.getId().longValue());
         event.setClientName(request.getClientName());
@@ -191,11 +195,6 @@ public class EventController {
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new EditEventResponse("error", "Это время занято");
         }
-        Optional<Event> storedEvent = eventService.findById(request.getId().longValue());
-        if (storedEvent.equals(request)) {
-            return new EditEventResponse("error", "Данные записи не изменились");
-        }
-
         eventService.addEvent(event);
         return new EditEventResponse("success", "Запись успешно изменена");
     }
