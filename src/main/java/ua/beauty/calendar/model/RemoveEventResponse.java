@@ -10,13 +10,10 @@ public class RemoveEventResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("message")
     private String message;
-    @JsonProperty("id")
-    private long id;
 
 
-    public RemoveEventResponse(String status, String message, Long id) {
+    public RemoveEventResponse(String status, String message) {
         this.status = status;
         this.message = message;
-        this.id = id;
     }
 }

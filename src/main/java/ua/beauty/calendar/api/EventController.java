@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 //это есть адаптер
@@ -167,7 +168,7 @@ public class EventController {
         }
 
         eventService.addEvent(event);
-        return new CreateEventResponse("success", "created");
+        return new CreateEventResponse("success", "Запись успешно добавлена");
     }
 
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -190,16 +191,20 @@ public class EventController {
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new EditEventResponse("error", "Это время занято");
         }
+        Optional<Event> storedEvent = eventService.findById(request.getId().longValue());
+        if (storedEvent.equals(request)) {
+            return new EditEventResponse("error", "Данные записи не изменились");
+        }
 
         eventService.addEvent(event);
-        return new EditEventResponse("success", "edited");
+        return new EditEventResponse("success", "Запись успешно изменена");
     }
 
     @GetMapping("/event/remove/{id}")
     public RemoveEventResponse removeEvent(@PathVariable(value = "id") String eventId) {
 
-        Long id = eventService.removeEvent(new Long(eventId));
-        return new RemoveEventResponse("success", "removed", id);
+        eventService.removeEvent(new Long(eventId));
+        return new RemoveEventResponse("success", "Запись успешно удалена");
     }
 
 
