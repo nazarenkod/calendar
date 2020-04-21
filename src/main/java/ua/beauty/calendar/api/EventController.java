@@ -66,9 +66,21 @@ public class EventController {
                         eventFromDb.get().getAdditionInfo().equals(editedEvent.getAdditionalInfo())
         ) {
             result = true;
-
         }
-        System.out.println("result " + result);
+        return result;
+    }
+
+    public static boolean isEventDateOrMasterChange(Optional<Event> eventFromDb, EditEventRequest editedEvent) {
+        boolean result = false;
+        if (
+                eventFromDb.get().getDate().equals(editedEvent.getDate()) ||
+                        eventFromDb.get().getTime().equals(editedEvent.getTime()) ||
+                        eventFromDb.get().getDuration().equals(editedEvent.getDuration()) ||
+                        eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
+
+        ) {
+            result = true;
+        }
         return result;
     }
 
@@ -225,8 +237,10 @@ public class EventController {
         }
         event.setProcedure(request.getProcedure());
         List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
-        if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
-            return new EditEventResponse("error", "Это время занято");
+        if (isEventDateOrMasterChange(storedEvent, request)) {
+            if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
+                return new EditEventResponse("error", "Это время занято");
+            }
         }
         event.setAdditionInfo(request.getAdditionalInfo());
         eventService.addEvent(event);
