@@ -18,19 +18,16 @@ public class EditEventRequest {
     @JsonProperty("id")
     private Long id;
 
-    @NonNull
-    @NotBlank
+
     @JsonProperty("clientName")
     private String clientName;
 
-    @NonNull
-    @NotBlank
     @JsonProperty("phoneNumber")
     private String phoneNumber;
 
 
     //сдулать проверку на наличие из Dictionary
-    @NonNull
+
     @JsonProperty("instagram")
     private String instagram;
 
