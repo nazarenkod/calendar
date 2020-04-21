@@ -221,11 +221,13 @@ public class EventController {
         }
         event.setProcedure(request.getProcedure());
         List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
-        if (eventsByDateAndMaster.get(0).getFreeDay().equals(true)) {
-            return new CreateEventResponse("error", request.getDate() + " выходной у мастера " + request.getMaster().getName());
-        }
-        if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
-            return new CreateEventResponse("error", "Это время занято");
+        if (!eventsByDateAndMaster.isEmpty()) {
+            if (eventsByDateAndMaster.get(0).getFreeDay().equals(true)) {
+                return new CreateEventResponse("error", request.getDate() + " выходной у мастера " + request.getMaster().getName());
+            }
+            if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
+                return new CreateEventResponse("error", "Это время занято");
+            }
         }
         event.setAdditionalInfo(request.getAdditionalInfo());
         event.setFreeDay(request.getFreeDay());
