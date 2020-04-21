@@ -63,7 +63,7 @@ public class EventController {
                         &&
                         eventFromDb.get().getProcedure().getId().equals(editedEvent.getProcedure().getId())
                         &&
-                        eventFromDb.get().getAdditionInfo().equals(editedEvent.getAdditionalInfo())
+                        eventFromDb.get().getAdditionalInfo().equals(editedEvent.getAdditionalInfo())
         ) {
             result = true;
         }
@@ -211,7 +211,7 @@ public class EventController {
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new CreateEventResponse("error", "Это время занято");
         }
-        event.setAdditionInfo(request.getAdditionalInfo());
+        event.setAdditionalInfo(request.getAdditionalInfo());
         eventService.addEvent(event);
         return new CreateEventResponse("success", "Запись успешно добавлена");
     }
@@ -242,7 +242,7 @@ public class EventController {
                 return new EditEventResponse("error", "Это время занято");
             }
         }
-        event.setAdditionInfo(request.getAdditionalInfo());
+        event.setAdditionalInfo(request.getAdditionalInfo());
         eventService.addEvent(event);
         return new EditEventResponse("success", "Запись успешно изменена");
     }

@@ -57,7 +57,7 @@ public class Event {
     private Procedure procedure;
 
 
-    private String additionInfo;
+    private String additionalInfo;
 
 }
 
