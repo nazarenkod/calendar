@@ -188,6 +188,18 @@ public class EventController {
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     CreateEventResponse addEvent(@RequestBody EventRequest request) {
         Event event = new Event();
+        if (request.getFreeDay().equals(true)) {
+            event.setDate(request.getDate());
+            event.setTime("00:00");
+            event.setDuration("23:00");
+            event.setMaster(request.getMaster());
+            event.setFreeDay(request.getFreeDay());
+            if (!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty()) {
+                return new CreateEventResponse("error", "Есть записи на дату " + request.getDate());
+            }
+            eventService.addEvent(event);
+            return new CreateEventResponse("success", "Выходной успешно добавлен");
+        }
         event.setClientName(request.getClientName());
         event.setPhoneNumber(request.getPhoneNumber());
         event.setInstagram(request.getInstagram());
@@ -208,10 +220,14 @@ public class EventController {
         }
         event.setProcedure(request.getProcedure());
         List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
+        if (eventsByDateAndMaster.get(0).getFreeDay().equals(true)) {
+            return new CreateEventResponse("error", request.getDate() + " выходной у мастера " + request.getMaster().getName());
+        }
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new CreateEventResponse("error", "Это время занято");
         }
         event.setAdditionalInfo(request.getAdditionalInfo());
+        event.setFreeDay(request.getFreeDay());
         eventService.addEvent(event);
         return new CreateEventResponse("success", "Запись успешно добавлена");
     }

@@ -14,24 +14,18 @@ import javax.validation.constraints.NotBlank;
 @RequiredArgsConstructor
 public class EventRequest {
 
-    @NonNull
-    @NotBlank
+
     @JsonProperty("clientName")
     private String clientName;
 
-    @NonNull
-    @NotBlank
     @JsonProperty("phoneNumber")
     private String phoneNumber;
 
 
     //сдулать проверку на наличие из Dictionary
-    @NonNull
     @JsonProperty("instagram")
     private String instagram;
 
-    @NonNull
-    @NotBlank
     @JsonProperty("price")
     private String price;
 
@@ -40,13 +34,9 @@ public class EventRequest {
     @JsonProperty("date")
     private String date;
 
-    @NonNull
-    @NotBlank
     @JsonProperty("time")
     private String time;
 
-    @NonNull
-    @NotBlank
     @JsonProperty("duration")
     private String duration;
 
@@ -54,10 +44,12 @@ public class EventRequest {
     @JsonProperty("master")
     private Master master;
 
-    @NonNull
     @JsonProperty("procedure")
     private Procedure procedure;
 
     @JsonProperty("additionalInfo")
     private String additionalInfo;
+
+    @JsonProperty("freeDay")
+    private Boolean freeDay;
 }
