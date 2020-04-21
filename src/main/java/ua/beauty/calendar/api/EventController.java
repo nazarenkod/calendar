@@ -71,7 +71,7 @@ public class EventController {
     }
 
     public static boolean isEventDateOrMasterChange(Optional<Event> eventFromDb, EditEventRequest editedEvent) {
-        boolean result = false;
+        boolean result = true;
         if (
                 eventFromDb.get().getDate().equals(editedEvent.getDate()) ||
                         eventFromDb.get().getTime().equals(editedEvent.getTime()) ||
@@ -79,7 +79,7 @@ public class EventController {
                         eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
 
         ) {
-            result = true;
+            result = false;
         }
         return result;
     }
