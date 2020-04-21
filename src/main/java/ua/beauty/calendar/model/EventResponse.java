@@ -11,7 +11,7 @@ public class EventResponse {
     @JsonProperty("status")
     private String status;
     @JsonProperty("events")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    // @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Event> events;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("message")

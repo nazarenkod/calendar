@@ -193,6 +193,7 @@ public class EventController {
             event.setTime("00:00");
             event.setDuration("23:00");
             event.setMaster(request.getMaster());
+            System.out.println("request.getFreeDay() " + request.getFreeDay());
             event.setFreeDay(request.getFreeDay());
             if (!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty()) {
                 return new CreateEventResponse("error", "Есть записи на дату " + request.getDate());
