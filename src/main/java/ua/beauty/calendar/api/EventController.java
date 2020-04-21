@@ -62,6 +62,8 @@ public class EventController {
                         eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
                         &&
                         eventFromDb.get().getProcedure().getId().equals(editedEvent.getProcedure().getId())
+                        &&
+                        eventFromDb.get().getAdditionInfo().equals(editedEvent.getAdditionalInfo())
         ) {
             result = true;
 
@@ -178,8 +180,14 @@ public class EventController {
         event.setPhoneNumber(request.getPhoneNumber());
         event.setInstagram(request.getInstagram());
         event.setPrice(request.getPrice());
+        if (request.getTime().equals("00:00")) {
+            return new CreateEventResponse("error", "Время начала процедуры не выбрано");
+        }
         event.setTime(request.getTime());
         event.setDate(request.getDate());
+        if (request.getDuration().equals("00:00")) {
+            return new CreateEventResponse("error", "Продолжительность процедуры не указана");
+        }
         event.setDuration(request.getDuration());
         event.setMaster(request.getMaster());
 
@@ -191,7 +199,7 @@ public class EventController {
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new CreateEventResponse("error", "Это время занято");
         }
-
+        event.setAdditionInfo(request.getAdditionalInfo());
         eventService.addEvent(event);
         return new CreateEventResponse("success", "Запись успешно добавлена");
     }
@@ -220,6 +228,7 @@ public class EventController {
         if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
             return new EditEventResponse("error", "Это время занято");
         }
+        event.setAdditionInfo(request.getAdditionalInfo());
         eventService.addEvent(event);
         return new EditEventResponse("success", "Запись успешно изменена");
     }

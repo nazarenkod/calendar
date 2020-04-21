@@ -56,5 +56,8 @@ public class Event {
     @NotNull
     private Procedure procedure;
 
+
+    private String additionInfo;
+
 }
 

@@ -61,4 +61,7 @@ public class EditEventRequest {
     @NonNull
     @JsonProperty("procedure")
     private Procedure procedure;
+
+    @JsonProperty("additionalInfo")
+    private String additionalInfo;
 }

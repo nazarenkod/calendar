@@ -21,10 +21,10 @@ public class ValidDateCheck {
     public void createEvents() {
 
         events = new ArrayList<>();
-        events.add(new Event(new Long(1), "Клиент", "телефон", "insta", "3000", "07.04.2020", "08:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание")));
-        events.add(new Event(new Long(2), "Клиент", "телефон", "insta", "3000", "07.04.2020", "17:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание")));
-        events.add(new Event(new Long(3), "Клиент", "телефон", "insta", "3000", "07.04.2020", "09:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание")));
-        events.add(new Event(new Long(4), "Клиент", "телефон", "insta", "3000", "07.04.2020", "12:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание")));
+        events.add(new Event(new Long(1), "Клиент", "телефон", "insta", "3000", "07.04.2020", "08:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание"), ""));
+        events.add(new Event(new Long(2), "Клиент", "телефон", "insta", "3000", "07.04.2020", "17:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание"), ""));
+        events.add(new Event(new Long(3), "Клиент", "телефон", "insta", "3000", "07.04.2020", "09:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание"), ""));
+        events.add(new Event(new Long(4), "Клиент", "телефон", "insta", "3000", "07.04.2020", "12:00", "01:00", new Master(new Long(1), "Полина"), new Procedure(new Long(1), "Окрашивание"), ""));
     }
 
 
