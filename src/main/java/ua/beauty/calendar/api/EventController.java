@@ -44,6 +44,31 @@ public class EventController {
 
     }
 
+    public static boolean isEventsEquals(Optional<Event> eventFromDb, EditEventRequest editedEvent) {
+        boolean result = false;
+        if (
+                eventFromDb.get().getId().equals(editedEvent.getId())
+                        &&
+                        eventFromDb.get().getClientName().equals(editedEvent.getClientName())
+                        &&
+                        eventFromDb.get().getInstagram().equals(editedEvent.getInstagram()) &&
+                        eventFromDb.get().getPhoneNumber().equals(editedEvent.getPhoneNumber()) &&
+                        eventFromDb.get().getPrice().equals(editedEvent.getPrice())
+                        &&
+                        eventFromDb.get().getDate().equals(editedEvent.getDate()) &&
+                        eventFromDb.get().getTime().equals(editedEvent.getTime()) &&
+                        eventFromDb.get().getDuration().equals(editedEvent.getDuration())
+                        &&
+                        eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
+                        &&
+                        eventFromDb.get().getProcedure().getId().equals(editedEvent.getProcedure().getId())
+        ) {
+            result = true;
+
+        }
+        System.out.println("result " + result);
+        return result;
+    }
 
     public static boolean isTimeFree(String date, String time, String duration, List<Event> events) {
         boolean result = false;
@@ -174,7 +199,7 @@ public class EventController {
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     EditEventResponse editEvent(@RequestBody @Valid EditEventRequest request) {
         Optional<Event> storedEvent = eventService.findById(request.getId().longValue());
-        if (storedEvent.equals(request)) {
+        if (isEventsEquals(storedEvent, request)) {
             return new EditEventResponse("error", "Данные записи не изменились");
         }
         Event event = new Event();
