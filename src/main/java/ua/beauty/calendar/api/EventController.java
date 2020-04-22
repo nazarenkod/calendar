@@ -201,10 +201,8 @@ public class EventController {
     CreateEventResponse addEvent(@RequestBody EventRequest request) {
         Event event = new Event();
         if (request.getFreeDay()) {
-            System.out.println("request.getFreeDay()");
             event.setTime("00:00");
             event.setDuration("23:00");
-            System.out.println("!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty() " + !eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty());
             if (!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty()) {
                 return new CreateEventResponse("error", "Есть записи на дату " + request.getDate());
             }
@@ -252,25 +250,19 @@ public class EventController {
         }
         Event event = new Event();
         if (request.getFreeDay()) {
-            event.setId(request.getId().longValue());
-            event.setDate(request.getDate());
             event.setTime("00:00");
             event.setDuration("23:00");
-            event.setMaster(request.getMaster());
-            event.setFreeDay(request.getFreeDay());
             if (!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty()) {
                 return new EditEventResponse("error", "Есть записи на дату " + request.getDate());
             }
         } else {
-            event.setId(request.getId().longValue());
+
             event.setClientName(request.getClientName());
             event.setPhoneNumber(request.getPhoneNumber());
             event.setInstagram(request.getInstagram());
             event.setPrice(request.getPrice());
             event.setTime(request.getTime());
-            event.setDate(request.getDate());
             event.setDuration(request.getDuration());
-            event.setMaster(request.getMaster());
             if (request.getProcedure() == null) {
                 return new EditEventResponse("error", "Процедура не указана");
             }
@@ -283,6 +275,10 @@ public class EventController {
                 return new EditEventResponse("error", "Это время занято");
             }
         }
+        event.setId(request.getId().longValue());
+        event.setMaster(request.getMaster());
+        event.setDate(request.getDate());
+        event.setFreeDay(request.getFreeDay());
         eventService.addEvent(event);
         return new EditEventResponse("success", "Запись успешно изменена");
     }
