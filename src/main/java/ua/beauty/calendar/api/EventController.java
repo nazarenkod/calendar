@@ -201,47 +201,43 @@ public class EventController {
     CreateEventResponse addEvent(@RequestBody EventRequest request) {
         Event event = new Event();
         if (request.getFreeDay()) {
-            event.setDate(request.getDate());
             event.setTime("00:00");
             event.setDuration("23:00");
-            event.setMaster(request.getMaster());
-            event.setFreeDay(request.getFreeDay());
             if (!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty()) {
                 return new CreateEventResponse("error", "Есть записи на дату " + request.getDate());
             }
-            eventService.addEvent(event);
-            return new CreateEventResponse("success", "Выходной успешно добавлен");
-        }
-        event.setClientName(request.getClientName());
-        event.setPhoneNumber(request.getPhoneNumber());
-        event.setInstagram(request.getInstagram());
-        event.setPrice(request.getPrice());
-        if (request.getTime().equals("00:00")) {
-            return new CreateEventResponse("error", "Время начала процедуры не выбрано");
-        }
-        event.setTime(request.getTime());
-        event.setDate(request.getDate());
-        if (request.getDuration().equals("00:00")) {
-            return new CreateEventResponse("error", "Продолжительность процедуры не указана");
-        }
-        event.setDuration(request.getDuration());
-        event.setMaster(request.getMaster());
+        } else {
+            event.setClientName(request.getClientName());
+            event.setPhoneNumber(request.getPhoneNumber());
+            event.setInstagram(request.getInstagram());
+            event.setPrice(request.getPrice());
+            if (request.getTime().equals("00:00")) {
+                return new CreateEventResponse("error", "Время начала процедуры не выбрано");
+            }
+            event.setTime(request.getTime());
 
-        if (request.getProcedure() == null) {
-            return new CreateEventResponse("error", "Процедура не указана");
-        }
-        event.setProcedure(request.getProcedure());
-        List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
-        if (!eventsByDateAndMaster.isEmpty()) {
-            if (eventsByDateAndMaster.get(0).getFreeDay()) {
-                return new CreateEventResponse("error", request.getDate() + " выходной у мастера " + request.getMaster().getName());
+            if (request.getDuration().equals("00:00")) {
+                return new CreateEventResponse("error", "Продолжительность процедуры не указана");
             }
-            if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
-                return new CreateEventResponse("error", "Это время занято");
+            event.setDuration(request.getDuration());
+            if (request.getProcedure() == null) {
+                return new CreateEventResponse("error", "Процедура не указана");
             }
+            event.setProcedure(request.getProcedure());
+            List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
+            if (!eventsByDateAndMaster.isEmpty()) {
+                if (eventsByDateAndMaster.get(0).getFreeDay()) {
+                    return new CreateEventResponse("error", request.getDate() + " выходной у мастера " + request.getMaster().getName());
+                }
+                if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
+                    return new CreateEventResponse("error", "Это время занято");
+                }
+            }
+            event.setAdditionalInfo(request.getAdditionalInfo());
         }
-        event.setAdditionalInfo(request.getAdditionalInfo());
         event.setFreeDay(request.getFreeDay());
+        event.setMaster(request.getMaster());
+        event.setDate(request.getDate());
         eventService.addEvent(event);
         return new CreateEventResponse("success", "Запись успешно добавлена");
     }
