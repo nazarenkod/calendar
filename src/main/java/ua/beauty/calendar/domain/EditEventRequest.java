@@ -49,7 +49,6 @@ public class EditEventRequest {
     private String duration;
 
     @NonNull
-    @NotBlank
     @JsonProperty("master")
     private Master master;
 
