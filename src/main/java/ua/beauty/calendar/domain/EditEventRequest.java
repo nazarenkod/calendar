@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 //Это DataTransferObject
 @Data
 @NoArgsConstructor
@@ -15,7 +13,6 @@ import javax.validation.constraints.NotBlank;
 public class EditEventRequest {
 
     @NonNull
-    @NotBlank
     @JsonProperty("id")
     private Long id;
 
@@ -37,7 +34,6 @@ public class EditEventRequest {
     private String price;
 
     @NonNull
-    @NotBlank
     @JsonProperty("date")
     private String date;
 
