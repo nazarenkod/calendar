@@ -254,6 +254,7 @@ public class EventController {
         }
         Event event = new Event();
         if (request.getFreeDay()) {
+            event.setId(request.getId().longValue());
             event.setDate(request.getDate());
             event.setTime("00:00");
             event.setDuration("23:00");
