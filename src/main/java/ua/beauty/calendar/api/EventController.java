@@ -276,6 +276,9 @@ public class EventController {
             if (eventsByDateAndMaster.size() != 1 && !eventsByDateAndMaster.get(0).getFreeDay()) {
                 return new EditEventResponse("error", "Есть записи на дату " + request.getDate() + " у мастера " + request.getMaster().getName());
             }
+            if (eventsByDateAndMaster.get(0).getFreeDay()) {
+                return new EditEventResponse("error", "У мастера " + request.getMaster().getName() + " выходной");
+            }
 
         }
         //Должен сюда попасть
