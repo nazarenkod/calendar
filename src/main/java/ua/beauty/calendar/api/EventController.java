@@ -263,7 +263,7 @@ public class EventController {
         event.setDate(request.getDate());
         event.setDuration(request.getDuration());
         event.setMaster(request.getMaster());
-        if (request.getProcedure() == null) {
+        if (!request.getFreeDay() && request.getProcedure() == null) {
             return new EditEventResponse("error", "Процедура не указана");
         }
         event.setProcedure(request.getProcedure());
