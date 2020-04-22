@@ -46,39 +46,41 @@ public class EventController {
 
     public static boolean isEventsEquals(Optional<Event> eventFromDb, EditEventRequest editedEvent) {
         boolean result = false;
-        if (editedEvent.getFreeDay()) {
-            if (
-                    eventFromDb.get().getId().equals(editedEvent.getId()) &&
-                            eventFromDb.get().getFreeDay().equals(editedEvent.getFreeDay()) &&
-                            eventFromDb.get().getDate().equals(editedEvent.getDate()) &&
-                            eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
-            ) {
-                result = true;
+        if (editedEvent.getFreeDay().equals(eventFromDb.get().getFreeDay())) {
+            if (editedEvent.getFreeDay()) {
+                if (
+                        eventFromDb.get().getId().equals(editedEvent.getId()) &&
+                                eventFromDb.get().getFreeDay().equals(editedEvent.getFreeDay()) &&
+                                eventFromDb.get().getDate().equals(editedEvent.getDate()) &&
+                                eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
+                ) {
+                    result = true;
+                }
+            } else {
+                if (
+                        eventFromDb.get().getId().equals(editedEvent.getId())
+                                &&
+                                eventFromDb.get().getClientName().equals(editedEvent.getClientName())
+                                &&
+                                eventFromDb.get().getInstagram().equals(editedEvent.getInstagram()) &&
+                                eventFromDb.get().getPhoneNumber().equals(editedEvent.getPhoneNumber()) &&
+                                eventFromDb.get().getPrice().equals(editedEvent.getPrice())
+                                &&
+                                eventFromDb.get().getDate().equals(editedEvent.getDate()) &&
+                                eventFromDb.get().getTime().equals(editedEvent.getTime()) &&
+                                eventFromDb.get().getDuration().equals(editedEvent.getDuration())
+                                &&
+                                eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
+                                &&
+                                eventFromDb.get().getProcedure().getId().equals(editedEvent.getProcedure().getId())
+                                &&
+                                eventFromDb.get().getAdditionalInfo().equals(editedEvent.getAdditionalInfo())
+                ) {
+                    result = true;
+                }
             }
-        } else {
-            if (
-                    eventFromDb.get().getId().equals(editedEvent.getId())
-                            &&
-                            eventFromDb.get().getClientName().equals(editedEvent.getClientName())
-                            &&
-                            eventFromDb.get().getInstagram().equals(editedEvent.getInstagram()) &&
-                            eventFromDb.get().getPhoneNumber().equals(editedEvent.getPhoneNumber()) &&
-                            eventFromDb.get().getPrice().equals(editedEvent.getPrice())
-                            &&
-                            eventFromDb.get().getDate().equals(editedEvent.getDate()) &&
-                            eventFromDb.get().getTime().equals(editedEvent.getTime()) &&
-                            eventFromDb.get().getDuration().equals(editedEvent.getDuration())
-                            &&
-                            eventFromDb.get().getMaster().getId().equals(editedEvent.getMaster().getId())
-                            &&
-                            eventFromDb.get().getProcedure().getId().equals(editedEvent.getProcedure().getId())
-                            &&
-                            eventFromDb.get().getAdditionalInfo().equals(editedEvent.getAdditionalInfo())
-            ) {
-                result = true;
-            }
-        }
 
+        }
         return result;
     }
 
