@@ -270,6 +270,9 @@ public class EventController {
             event.setAdditionalInfo(request.getAdditionalInfo());
         }
         List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
+        if (!eventsByDateAndMaster.isEmpty()) {
+            return new EditEventResponse("error", "Есть записи на дату " + request.getDate() + " у мастера " + request.getMaster().getName());
+        }
         if (isEventDateOrMasterChange(storedEvent, request)) {
             if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
                 return new EditEventResponse("error", "Это время занято");
