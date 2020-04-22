@@ -200,12 +200,11 @@ public class EventController {
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     CreateEventResponse addEvent(@RequestBody EventRequest request) {
         Event event = new Event();
-        if (request.getFreeDay().equals(true)) {
+        if (request.getFreeDay()) {
             event.setDate(request.getDate());
             event.setTime("00:00");
             event.setDuration("23:00");
             event.setMaster(request.getMaster());
-            System.out.println("request.getFreeDay() " + request.getFreeDay());
             event.setFreeDay(request.getFreeDay());
             if (!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty()) {
                 return new CreateEventResponse("error", "Есть записи на дату " + request.getDate());
@@ -234,7 +233,7 @@ public class EventController {
         event.setProcedure(request.getProcedure());
         List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
         if (!eventsByDateAndMaster.isEmpty()) {
-            if (eventsByDateAndMaster.get(0).getFreeDay().equals(true)) {
+            if (eventsByDateAndMaster.get(0).getFreeDay()) {
                 return new CreateEventResponse("error", request.getDate() + " выходной у мастера " + request.getMaster().getName());
             }
             if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
@@ -254,26 +253,37 @@ public class EventController {
             return new EditEventResponse("error", "Данные записи не изменились");
         }
         Event event = new Event();
-        event.setId(request.getId().longValue());
-        event.setClientName(request.getClientName());
-        event.setPhoneNumber(request.getPhoneNumber());
-        event.setInstagram(request.getInstagram());
-        event.setPrice(request.getPrice());
-        event.setTime(request.getTime());
-        event.setDate(request.getDate());
-        event.setDuration(request.getDuration());
-        event.setMaster(request.getMaster());
-        if (!request.getFreeDay() && request.getProcedure() == null) {
-            return new EditEventResponse("error", "Процедура не указана");
+        if (request.getFreeDay()) {
+            event.setDate(request.getDate());
+            event.setTime("00:00");
+            event.setDuration("23:00");
+            event.setMaster(request.getMaster());
+            event.setFreeDay(request.getFreeDay());
+            if (!eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate()).isEmpty()) {
+                return new EditEventResponse("error", "Есть записи на дату " + request.getDate());
+            }
+        } else {
+            event.setId(request.getId().longValue());
+            event.setClientName(request.getClientName());
+            event.setPhoneNumber(request.getPhoneNumber());
+            event.setInstagram(request.getInstagram());
+            event.setPrice(request.getPrice());
+            event.setTime(request.getTime());
+            event.setDate(request.getDate());
+            event.setDuration(request.getDuration());
+            event.setMaster(request.getMaster());
+            if (request.getProcedure() == null) {
+                return new EditEventResponse("error", "Процедура не указана");
+            }
+            event.setProcedure(request.getProcedure());
+            event.setAdditionalInfo(request.getAdditionalInfo());
         }
-        event.setProcedure(request.getProcedure());
         List<Event> eventsByDateAndMaster = eventService.findEventByMasterAndDate(request.getMaster().getName(), request.getDate());
         if (isEventDateOrMasterChange(storedEvent, request)) {
             if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
                 return new EditEventResponse("error", "Это время занято");
             }
         }
-        event.setAdditionalInfo(request.getAdditionalInfo());
         eventService.addEvent(event);
         return new EditEventResponse("success", "Запись успешно изменена");
     }
