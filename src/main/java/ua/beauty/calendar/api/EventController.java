@@ -240,10 +240,13 @@ public class EventController {
 
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     EditEventResponse editEvent(@RequestBody @Valid EditEventRequest request) {
-        if (isDateInPast(request.getDate())) {
-            return new EditEventResponse("error", "Дата в прошлом");
-        }
+
         Optional<Event> storedEvent = eventService.findById(request.getId().longValue());
+        if (!storedEvent.get().getDate().equals(request.getDate())) {
+            if (isDateInPast(request.getDate())) {
+                return new EditEventResponse("error", "Дата в прошлом");
+            }
+        }
         if (isEventsEquals(storedEvent, request)) {
             return new EditEventResponse("error", "Данные записи не изменились");
         }
