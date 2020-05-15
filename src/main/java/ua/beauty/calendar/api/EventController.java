@@ -98,6 +98,17 @@ public class EventController {
         return result;
     }
 
+    public static boolean isDateInPast(String date) {
+        boolean result = false;
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate dateFromRequest = LocalDate.parse(date, df);
+        LocalDate now = LocalDate.now();
+        if (dateFromRequest.isBefore(now)) {
+            return result = true;
+        }
+        return result;
+    }
+
     public static boolean isTimeFree(String date, String time, String duration, List<Event> events) {
         boolean result = false;
         if (events.size() == 0) {
@@ -120,37 +131,25 @@ public class EventController {
 
             LocalDate localDate = LocalDate.parse(date, df);
             LocalTime localTime = LocalTime.parse(time);
-            System.out.println("local time " + localTime);
             LocalTime localDuration = LocalTime.parse(duration);
-            System.out.println("local duration " + localDuration);
             Integer hour = localDuration.getHour();
             Integer min = localDuration.getMinute();
 
             LocalDateTime start = LocalDateTime.of(localDate, localTime);
             LocalDateTime end = start.plusHours(hour).plusMinutes(min);
-            System.out.println("Старт " + start);
-            System.out.println("Конец " + end);
-            System.out.println(startApiArray.size() > 3);
-            System.out.println(localDuration.getHour());
+
             if (startApiArray.size() > 3 && localDuration.getHour() > 9) {
-                System.out.println(startApiArray.size() > 3 || localDuration.isAfter(localTime));
                 return result = false;
             } else {
                 for (int i = 0; i < startApiArray.size(); i++) {
                     //Начало после начала от апи
-                    System.out.println("Начало после начала от апи " + start.isAfter(startApiArray.get(i)));
                     if (start.isAfter(startApiArray.get(i))) {
                         //Начало раньше конца от апи
-                        System.out.println("Начало раньше конца от апи " + start.isBefore(endApiArray.get(i)));
                         if (start.isBefore(endApiArray.get(i))) {
                             //Начало = концу от апи
-                            System.out.println("Начало = концу от апи " + start.isEqual(endApiArray.get(i)));
                             if (start.isEqual(endApiArray.get(i))) {
-                                System.out.println("Начало = концу от апи");
                                 return result = true;
-
                             } else {
-                                System.out.println("Начало раньше конца от апи");
                                 return result = false;
 
                             }
@@ -158,13 +157,9 @@ public class EventController {
 
                         } else {
                             //Конец раньше конца от апи
-                            System.out.println("Конец раньше конца от апи " + end.isBefore(endApiArray.get(i)));
                             if (end.isBefore(endApiArray.get(i))) {
-                                System.out.println("время окончания перед концом процедуры");
                                 return result = false;
-
                             } else {
-                                System.out.println("все огонь");
                                 return result = true;
 
                             }
@@ -172,18 +167,14 @@ public class EventController {
 
                     } else {
                         //Конец раньше начала от апи
-                        System.out.println("Конец раньше начала от апи " + end.isBefore(startApiArray.get(i)));
                         if (end.isBefore(startApiArray.get(i))) {
-                            System.out.println("вcе огонь");
                             return result = true;
 
 
                         } else if (end.isEqual(startApiArray.get(i))) {
-                            System.out.println("Все огонь: время конца = времени начала процедуры");
                             return result = true;
 
                         } else {
-                            System.out.println("время окончания после начала процедуры");
                             return result = false;
 
                         }
@@ -201,6 +192,9 @@ public class EventController {
 
     @PostMapping(path = "/addEvent",consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     CreateEventResponse addEvent(@RequestBody EventRequest request) {
+        if (isDateInPast(request.getDate())) {
+            return new CreateEventResponse("error", "Дата в прошлом");
+        }
         Event event = new Event();
         if (request.getFreeDay()) {
             event.setTime("00:00");
@@ -246,6 +240,9 @@ public class EventController {
 
     @PostMapping(path = "/editEvent", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     EditEventResponse editEvent(@RequestBody @Valid EditEventRequest request) {
+        if (isDateInPast(request.getDate())) {
+            return new EditEventResponse("error", "Дата в прошлом");
+        }
         Optional<Event> storedEvent = eventService.findById(request.getId().longValue());
         if (isEventsEquals(storedEvent, request)) {
             return new EditEventResponse("error", "Данные записи не изменились");
@@ -277,11 +274,10 @@ public class EventController {
                 return new EditEventResponse("error", "Есть записи на дату " + request.getDate() + " у мастера " + request.getMaster().getName());
             }
             if (eventsByDateAndMaster.get(0).getFreeDay()) {
-                return new EditEventResponse("error", "У мастера " + request.getMaster().getName() + " выходной");
+                return new EditEventResponse("error", "У мастера " + request.getMaster().getName() + " выходной " + request.getDate());
             }
 
         }
-        //Должен сюда попасть
         if (isEventDateOrMasterChange(storedEvent, request)) {
             if (!isTimeFree(request.getDate(), request.getTime(), request.getDuration(), eventsByDateAndMaster)) {
                 return new EditEventResponse("error", "Это время занято");
