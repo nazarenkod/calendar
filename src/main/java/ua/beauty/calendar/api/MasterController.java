@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.beauty.calendar.domain.Master;
-import ua.beauty.calendar.domain.MasterRequest;
+import ua.beauty.calendar.domain.dto.MasterRequest;
 import ua.beauty.calendar.exception.ResourceNotFoundException;
 import ua.beauty.calendar.model.MasterResponse;
 import ua.beauty.calendar.service.MasterService;

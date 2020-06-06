@@ -1,4 +1,4 @@
-package ua.beauty.calendar.domain;
+package ua.beauty.calendar.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class MasterRequest {
+public class ProcedureRequest {
 
     @NonNull
     @NotBlank

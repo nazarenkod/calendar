@@ -1,10 +1,12 @@
-package ua.beauty.calendar.domain;
+package ua.beauty.calendar.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import ua.beauty.calendar.domain.Master;
+import ua.beauty.calendar.domain.Procedure;
 
 //Это DataTransferObject
 @Data
